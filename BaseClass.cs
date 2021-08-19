@@ -18,7 +18,7 @@ namespace DemoQATests
             options.AddExcludedArgument("enable-automation");
             options.AddAdditionalCapability("useAutomationExtension", false);
             options.AddArgument("start-maximized");
-            options.PageLoadStrategy = PageLoadStrategy.Default;
+            options.PageLoadStrategy = PageLoadStrategy.Eager;
 
             driver = new ChromeDriver(options);
         }
