@@ -43,7 +43,7 @@ namespace DemoQATests
             ClickGenderRadioBtn(gender);
             Email().SendKeys(email);
             MobileNumber().SendKeys(phone);
-            SendDateOfBirth("01 March 1991");
+            SendDateOfBirth();
             UploadPicture(imagePath);
             Address().SendKeys(address);
             SendStateDDL(state);
