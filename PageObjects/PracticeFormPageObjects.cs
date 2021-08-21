@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
 namespace DemoQATests
 {
@@ -49,13 +50,26 @@ namespace DemoQATests
 
         public IWebElement MobileNumber() => FindById("userNumber");
 
-        // in format of "DD month YYYY"
-        public void SendDateOfBirth(string dateOfBirth)
+        public string GenerateRandomDate()
         {
+            var randomTest = new Random();
+            var startDate = DateTime.ParseExact("20-Jan-1900", "dd-MMM-yyyy", null);
+            var endDate = DateTime.ParseExact("31-Dec-2100", "dd-MMM-yyyy", null);
+            TimeSpan timeSpan = endDate - startDate;
+            TimeSpan newSpan = new TimeSpan(0, randomTest.Next(0, (int)timeSpan.TotalMinutes), 0);
+            DateTime newDate = startDate + newSpan;
+            string date = newDate.ToString("dd-MMMM-yyyy");
+            return date;
+        }
+
+        // in format of "DD month YYYY"
+        public void SendDateOfBirth()
+        {
+
             FindById("dateOfBirthInput").Click();
             Actions actions = new Actions(driver);
             actions.KeyDown(Keys.Control).SendKeys("a").KeyUp(Keys.Control).Build().Perform();
-            FindById("dateOfBirthInput").SendKeys(dateOfBirth);
+            FindById("dateOfBirthInput").SendKeys(GenerateRandomDate());
             actions.SendKeys(Keys.Escape).Build().Perform();
         }
 
